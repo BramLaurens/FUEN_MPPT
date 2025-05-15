@@ -1,11 +1,16 @@
 #include <Arduino.h>
+// Pins
 #define MES_PV 34
 #define MES_SHUNT 33
+#define LOAD_PWM 26
 
 // Constants
 #define OP_Gain 12.20
 #define SHUNT_R 0.53
 #define V_offset 0.3
+
+#define PWM_FREQ 5000
+#define PWM_RES 8
 
 // Prototypes
 float calc_current();
@@ -20,6 +25,11 @@ float last_power = 0;
 void setup() {
   pinMode(MES_PV, INPUT);
   pinMode(MES_SHUNT, INPUT);
+  pinMode(LOAD_PWM, OUTPUT);
+
+  ledcSetup(2, PWM_FREQ, PWM_RES);
+  ledcAttachPin(LOAD_PWM, 2);
+
   Serial.begin(115200);
 
   Serial.println("Starting...");
@@ -30,6 +40,7 @@ void setup() {
 
 void loop() {
   pno_algorithm();
+  ledcWrite(2, 128); // Set PWM duty cycle to 50%
   delay(1000);
 }
 
