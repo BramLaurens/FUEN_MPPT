@@ -109,7 +109,7 @@ void pno_algorithm(){
 
   
 
-  if ((power - last_power > 0.005) || (power - last_power < -0.005)) {
+  if ((power - last_power > 0.001) || (power - last_power < -0.001)) {
 
     Serial.print(" || ");
 
