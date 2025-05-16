@@ -46,7 +46,7 @@ void setup() {
 
 void loop() {
   pno_algorithm();
-  delay(250);
+  delay(100);
 }
 
 float calc_current(){
